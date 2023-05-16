@@ -1,7 +1,7 @@
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import * as React from 'react';
-import Texto from '../../components/Texto';
-import Login from '../Login';
+import MenuHome from '../../components/MenuHome';
+import PageTitle from '../../components/PageTitle';
 
 export default function Home({navigation}) {
   React.useLayoutEffect(() => {
@@ -10,8 +10,23 @@ export default function Home({navigation}) {
 
   return (
     <View>
-      <Texto>Pagina Inicial</Texto>
-      <Login></Login>
+      <PageTitle>Pagina Inicial</PageTitle>
+      <MenuHome/>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  titulo: {
+
+  },
+  carrossel: {
+    
+  },
+  submenu: {
+
+  },
+  lista: {
+
+  }
+})
