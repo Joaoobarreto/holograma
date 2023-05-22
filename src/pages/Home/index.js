@@ -1,7 +1,9 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, ScrollView, Image } from 'react-native';
 import * as React from 'react';
 import MenuHome from '../../components/MenuHome';
 import PageTitle from '../../components/PageTitle';
+import { hologramas } from '../../data/data';
+import HoloList from '../../components/HoloList';
 
 export default function Home({navigation}) {
   React.useLayoutEffect(() => {
@@ -9,10 +11,12 @@ export default function Home({navigation}) {
   }, [navigation]);
 
   return (
-    <View>
+    <ScrollView style={styles.container}>
       <PageTitle>Pagina Inicial</PageTitle>
+      <Image source={require('../../../assets/img/IronMan.jpg')}></Image>
       <MenuHome/>
-    </View>
+      <HoloList items={hologramas}></HoloList>
+    </ScrollView>
   );
 }
 
@@ -21,7 +25,7 @@ const styles = StyleSheet.create({
 
   },
   carrossel: {
-    
+
   },
   submenu: {
 
