@@ -1,4 +1,4 @@
-import { StyleSheet, ScrollView, Image } from 'react-native';
+import { StyleSheet, ScrollView, Image, SafeAreaView } from 'react-native';
 import * as React from 'react';
 import MenuHome from '../../components/MenuHome';
 import PageTitle from '../../components/PageTitle';
@@ -11,12 +11,14 @@ export default function Home({navigation}) {
   }, [navigation]);
 
   return (
+    <SafeAreaView>
     <ScrollView style={styles.container}>
       <PageTitle>Pagina Inicial</PageTitle>
-      <Image source={require('../../../assets/img/IronMan.jpg')}></Image>
+      <Image style={styles.carrossel} source={require('../../../assets/img/IronMan.jpg')}></Image>
       <MenuHome/>
       <HoloList items={hologramas}></HoloList>
     </ScrollView>
+    </SafeAreaView>
   );
 }
 
@@ -24,7 +26,8 @@ const styles = StyleSheet.create({
   titulo: {
 
   },
-  carrossel: {
+  carrossel: { 
+    marginRight: 10
 
   },
   submenu: {
