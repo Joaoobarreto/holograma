@@ -12,6 +12,7 @@ const estilos = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: "100",
+        fontFamily: "Roboto",
         fontStyle: "italic",
         margin: 10
     }

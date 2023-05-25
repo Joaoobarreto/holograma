@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text} from 'react-native';
+import { StyleSheet, Text, fontFamily} from 'react-native';
 
 export default function Texto({ children, style }) {
     return (
@@ -9,6 +9,7 @@ export default function Texto({ children, style }) {
 
 const estilos = StyleSheet.create({
     texto: {
-        fontFamily: "Roboto"
+        fontFamily: "Arial",
+        fontStyle:"italic"
     }
 })
