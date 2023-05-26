@@ -1,20 +1,20 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import Categorias from "../pages/Categorias";
-import HomePage from "../pages/Home/HomePage";
+import ProfilePage from "../pages/Profile/ProfilePage";
+import InformacoesConta from "../pages/InformacoesConta";
 
 const { Screen, Navigator } = createNativeStackNavigator();
 
-export function HomeStackRoutes() {
+export function ProfileStackRoutes() {
     return (
         <Navigator>
             <Screen
-            name='HomePage'
-            component={HomePage}
+            name='ProfilePage'
+            component={ProfilePage}
             />
             <Screen
-            name='Categorias'
-            component={Categorias}
+            name='InformacoesConta'
+            component={InformacoesConta}
             options={{headerShadowVisible: false, title: ''}}
             />
         </Navigator>

@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, Image } from "react-native";
+import { ScrollView, Image, StyleSheet } from "react-native";
 import PageTitle from "../../components/PageTitle";
 import MenuHome from "../../components/MenuHome";
 import HoloList from "../../components/HoloList";
@@ -8,7 +8,7 @@ import { hologramas } from "../../data/data.js"
 
 export default function HomePage({navigation}) {
     return (
-    <ScrollView>
+    <ScrollView style={estilos.page}>
       <PageTitle>Pagina Inicial</PageTitle>
       <Image source={require('../../../assets/img/IronMan.jpg')}></Image>
       <MenuHome navigation={navigation}/>
@@ -16,3 +16,9 @@ export default function HomePage({navigation}) {
     </ScrollView>
     )
 }
+
+const estilos = StyleSheet.create({
+  page: {
+    backgroundColor: '#fff'
+  }
+})
