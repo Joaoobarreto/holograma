@@ -1,10 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Home from './pages/Home'
-import Search from './pages/Search'
-import Cart from './pages/Cart'
-import Profile from './pages/Profile'
+import Home from '../pages/Home'
+import Search from '../pages/Search'
+import Cart from '../pages/Cart'
+import Profile from '../pages/Profile'
 
 import {AntDesign, Ionicons} from '@expo/vector-icons'
 

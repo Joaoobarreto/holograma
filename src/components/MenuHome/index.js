@@ -1,17 +1,21 @@
 import React from "react";
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import {Entypo, AntDesign, FontAwesome, FontAwesome5} from '@expo/vector-icons';
 import Texto from "../Texto";
 
-export default function MenuHome() {
+export default function MenuHome({navigation}) {
+    
+    function onPressCategoria() {
+        navigation.navigate('Categorias')
+    }
     return (
         <View style={estilos.menu}>
-            <View style={estilos.menuItem}>
+            <TouchableOpacity style={estilos.menuItem} onPress={onPressCategoria}>
                 <View style={estilos.itemIcon}>
                     <Entypo name="menu" size={24} color="#0001FC" />
                 </View>
                 <Texto style={estilos.iconTitle}>Categorias</Texto>
-            </View>
+            </TouchableOpacity>
 
             <View style={estilos.menuItem}>
                 <View style={estilos.itemIcon}>

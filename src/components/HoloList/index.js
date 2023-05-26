@@ -4,7 +4,7 @@ import Texto from "../Texto";
 
 export default function HoloList({ items }) {
   const renderItems = () => {
-    return items.map((item) => (
+    return items?.map((item) => (
       <View style={estilos.item} key={item.id}>
         <View style={estilos.image}>
           <Image source={require('../../../assets/img/holo-teste.jpg')} />

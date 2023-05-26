@@ -1,7 +1,7 @@
 import { StyleSheet, View, StatusBar } from 'react-native';
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import Routes from './src/routes';
+import Routes from './src/routes/routes';
 
 export default function App() {
   return (
