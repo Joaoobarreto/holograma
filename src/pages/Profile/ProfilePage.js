@@ -6,6 +6,12 @@ import {Entypo, AntDesign, EvilIcons, FontAwesome, FontAwesome5} from '@expo/vec
 
 
 export default function ProfilePage({navigation}) {
+  function InformacoesContaNavigate(){
+    navigation.navigate('InformacoesConta')
+  }
+  function MeusPedidosNavigate(){
+    navigation.navigate('MeusPedidos')
+  }
     return (
     <SafeAreaView>
       <StatusBar/>
@@ -15,13 +21,13 @@ export default function ProfilePage({navigation}) {
         <EvilIcons name="user" size={100} color="#0001FC" />
         <Texto style={styles.container}>Rafael Pereira</Texto>
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={MeusPedidosNavigate}>
         <Text style={styles.texto}>Meus Pedidos</Text>
       </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
         <Text style={styles.texto}>Retorno e Reembolso</Text>
       </TouchableOpacity>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={InformacoesContaNavigate}>
         <Text style={styles.texto}>Informações da Conta</Text>
       </TouchableOpacity>
         <TouchableOpacity style={styles.button}>
