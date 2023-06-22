@@ -8,9 +8,6 @@ export default function MenuHome({navigation}) {
     function onPressCategoria() {
         navigation.navigate('Categorias')
     }
-    function onPressOrcamento(){
-        navigation.navigate('Orcamento')
-    }
     return (
         <View style={estilos.menu}>
             <TouchableOpacity style={estilos.menuItem} onPress={onPressCategoria}>
@@ -28,12 +25,10 @@ export default function MenuHome({navigation}) {
             </View>
 
             <View style={estilos.menuItem}>
-                <TouchableOpacity style={estilos.menuItem} onPress={onPressOrcamento}>
                 <View style={estilos.itemIcon}>
                     <FontAwesome name="dollar" size={24} color="#0001FC" />
                 </View>
                 <Texto style={estilos.iconTitle}>Orçamento</Texto>
-                </TouchableOpacity>
             </View>
 
             <View style={estilos.menuItem}>
