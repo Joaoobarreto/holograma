@@ -7,7 +7,7 @@ export default function HoloList({ items }) {
     return items?.map((item) => (
       <View style={estilos.item} key={item.id}>
         <View style={estilos.image}>
-          <Image source={require('../../../assets/img/holo-teste.jpg')} />
+          <Image source={item.img} style={estilos.image} />
         </View>
         <View style={estilos.itemInfo}>
           <Texto style={estilos.textBold}>{item.title}</Texto>
@@ -32,20 +32,20 @@ const estilos = StyleSheet.create({
     padding: 10,
   },
   item: {
-    width: '40%',
+    width: "40%",
     padding: 10,
-    margin: '5%',
+    margin: "5%",
   },
   itemInfo: {
     marginTop: 5,
     padding: 5,
   },
   textBold: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   image: {
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
+    width: "100%",
+    height: 200,
+    resizeMode: "contain",
   },
 });
