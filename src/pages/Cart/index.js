@@ -1,14 +1,72 @@
-import { Button, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity } from 'react-native';
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Button, StyleSheet, Text, View, Image, ScrollView, TouchableOpacity, Modal, TextInput } from 'react-native';
 import { MaterialIcons } from 'react-native-vector-icons';
 
 export default function Cart({ navigation }) {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, [navigation]);
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [cep, setCep] = useState('');
+  const [logradouro, setLogradouro] = useState('');
+  const [complemento, setComplemento] = useState('');
+  const [numero, setNumero] = useState('');
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
+  const [address, setAddress] = useState('Clique para adicionar um endereço');
+  const [isCardModalVisible, setCardModalVisible] = useState(false);
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardCVV, setCardCVV] = useState('');
+  const [cardMonth, setCardMonth] = useState('');
+  const [cardYear, setCardYear] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [displayCard, setDisplayCard] = useState('Clique para adicionar um cartão');
+
+
+  const handleAddressConfirm = () => {
+    setAddress(`${logradouro}, ${numero}, ${complemento}, ${cidade}, ${estado}, ${cep}`);
+    setModalVisible(false);
+  };
+
+  const handleCardConfirm = () => {
+    const lastThreeDigits = cardNumber.slice(-3);
+    setDisplayCard(`*** ${lastThreeDigits}`);
+    setCardModalVisible(false);
+  };
+  
+
+  
+  const handleCepInput = (text) => {
+    setCep(text);
+  };
+
+  const handleLogradouroInput = (text) => {
+    setLogradouro(text);
+  };
+
+  const handleComplementoInput = (text) => {
+    setComplemento(text);
+  };
+
+  const handleNumeroInput = (text) => {
+    setNumero(text);
+  };
+
+  const handleCidadeInput = (text) => {
+    setCidade(text);
+  };
+
+  const handleEstadoInput = (text) => {
+    setEstado(text);
+  };
+
+  const handleAddressEdit = () => {
+    if (address === 'Clique para adicionar um endereço') {
+      setModalVisible(true);
+    }
+  };
+
+  
 
   return (
-    <ScrollView style={styles.container}>
+  <ScrollView style={styles.container}>
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>Pagamento</Text>
       </View>
@@ -57,12 +115,18 @@ export default function Cart({ navigation }) {
             </View>
           </View>
         </View>
-      </ScrollView>
+    </ScrollView>
       <View style={styles.paymentContainer}>
         <View style={styles.paymentInfo}>
           <View style={styles.deliveryContainer}>
             <Text style={styles.deliveryTitle}>Entrega</Text>
-            <Text style={styles.deliveryAddress}>SQN 308 Bloco D 402, BSB</Text>
+            <TouchableOpacity onPress={() => setModalVisible(true)}>
+              <Text style={styles.deliveryAddress}>
+               {address !== 'Clique para adicionar um endereço' ? address : 'Clique para adicionar um endereço'}
+              </Text>
+            </TouchableOpacity>
+
+  
           </View>
           <Text style={styles.deliveryFast}>ENTREGA RÁPIDA: 17/11/23</Text>
         </View>
@@ -70,11 +134,12 @@ export default function Cart({ navigation }) {
       <View style={styles.divider} />
       <View style={styles.paymentContainer}>
         <View style={styles.paymentInfo}>
-          <View style={styles.deliveryContainer}>
-            <Text style={styles.paymentTitleLeft}>Forma de pagamento</Text>
-            <Text style={styles.paymentMethod}>Visa ***678</Text>
-          </View>
-          <Text style={styles.paymentExpiration}>Vence em 02/27</Text>
+        <TouchableOpacity style={styles.deliveryContainer} onPress={() => setCardModalVisible(true)}>
+          <Text style={styles.paymentTitleLeft}>Forma de pagamento</Text>
+          <Text style={styles.paymentMethod}>
+            {displayCard !== 'Clique para adicionar um cartão' ? displayCard : 'Clique para adicionar um cartão'}
+          </Text>
+          </TouchableOpacity>
         </View>
       </View>
       <View style={styles.divider} />
@@ -90,7 +155,101 @@ export default function Cart({ navigation }) {
       <TouchableOpacity style={styles.button} onPress={() => {}}>
         <Text style={styles.buttonText}>Confirmar pagamento</Text>
       </TouchableOpacity>
+
+      <Modal visible={isModalVisible} transparent={true} animationType="fade">
+        <View style={styles.modalContainer}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitle}>Adicionar Endereço</Text>
+            <ScrollView>
+              <TextInput
+                style={styles.addressInput}
+                placeholder="CEP"
+                onChangeText={handleCepInput}
+                value={cep}
+              />
+              <TextInput
+                style={styles.addressInput}
+                placeholder="Logradouro"
+                onChangeText={handleLogradouroInput}
+                value={logradouro}
+              />
+              <TextInput
+                style={styles.addressInput}
+                placeholder="Complemento"
+                onChangeText={handleComplementoInput}
+                value={complemento}
+              />
+              <TextInput
+                style={styles.addressInput}
+                placeholder="Número"
+                onChangeText={handleNumeroInput}
+                value={numero}
+              />
+              <TextInput
+                style={styles.addressInput}
+                placeholder="Cidade"
+                onChangeText={handleCidadeInput}
+                value={cidade}
+              />
+              <TextInput
+                style={styles.addressInput}
+                placeholder="Estado"
+                onChangeText={handleEstadoInput}
+                value={estado}
+              />
+            </ScrollView>
+            <TouchableOpacity style={styles.modalButton} onPress={handleAddressConfirm}>
+              <Text style={styles.modalButtonText}>Confirmar</Text>
+            </TouchableOpacity>
+
+          </View>
+        </View>
+      </Modal>
+      <Modal visible={isCardModalVisible} transparent={true} animationType="fade">
+  <View style={styles.modalContainer}>
+    <View style={styles.modalContent}>
+      <Text style={styles.modalTitle}>Adicionar Cartão</Text>
+      <ScrollView>
+        <TextInput
+          style={styles.addressInput}
+          placeholder="Número"
+          onChangeText={setCardNumber}
+          value={cardNumber}
+        />
+        <TextInput
+          style={styles.addressInput}
+          placeholder="CVV"
+          onChangeText={setCardCVV}
+          value={cardCVV}
+        />
+        <TextInput
+          style={styles.addressInput}
+          placeholder="Mês"
+          onChangeText={setCardMonth}
+          value={cardMonth}
+        />
+        <TextInput
+          style={styles.addressInput}
+          placeholder="Ano"
+          onChangeText={setCardYear}
+          value={cardYear}
+        />
+        <TextInput
+          style={styles.addressInput}
+          placeholder="Nome"
+          onChangeText={setCardName}
+          value={cardName}
+        />
+      </ScrollView>
+      <TouchableOpacity style={styles.modalButton} onPress={handleCardConfirm}>
+        <Text style={styles.modalButtonText}>Confirmar</Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</Modal>
+
     </ScrollView>
+  
   );
 }
 
@@ -98,11 +257,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    paddingTop: 100,
+    paddingTop: 10,
     paddingHorizontal: 20,
   },
   headerContainer: {
     marginBottom: 20,
+    
   },
   headerTitle: {
     color: '#0A1034',
@@ -183,25 +343,28 @@ const styles = StyleSheet.create({
   },
   deliveryContainer: {
     flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 5,
+  
+    
   },
   deliveryTitle: {
     color: '#0A1034',
     fontStyle: 'italic',
     fontSize: 19,
-    marginRight: 5,
+    alignSelf: 'flex-start'
+
   },
   deliveryAddress: {
     color: '#0001FC',
     fontSize: 16,
     alignSelf: 'flex-end',
     flexWrap: 'wrap',
-    maxWidth: 200,
-    paddingHorizontal: 8,
+    maxWidth: 300,
+    paddingHorizontal: 13,
     paddingVertical: 2,
     marginLeft: 'auto',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+
   },
   deliveryFast: {
     color: '#555555',
@@ -245,19 +408,51 @@ const styles = StyleSheet.create({
   },
   button: {
     backgroundColor: '#0135EB',
-    paddingVertical: 15,
-    borderRadius: 10,
-    marginBottom: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+    marginBottom: 20,
   },
   buttonText: {
-    color: '#FFFFFF',
-    fontSize: 16,
-    fontWeight: 'bold',
+    color: '#fff',
     textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
-  deleteIconContainer: {
-    position: 'absolute',
-    top: 5,
-    right: 5,
+  modalContainer: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '90%',
+  },
+  modalTitle: {
+    color: '#0A1034',
+    fontSize: 16,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  addressInput: {
+    backgroundColor: '#F6F6F6',
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
+  },
+  modalButton: {
+    backgroundColor: '#0135EB',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 });
