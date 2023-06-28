@@ -16,18 +16,21 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.joaoobarreto.holograma"
+      "bundleIdentifier": "com.joaoobarreto.holograma",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "googleServicesFile": "./google-services.json"
       },
       "package": "com.joaoobarreto.holograma"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "scheme": "holograma"
+    "scheme": "holograma",
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }
