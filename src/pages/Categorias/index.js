@@ -1,31 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import Texto from "../../components/Texto";
+import CategoriaService from "../../services/CategoriaService.service";
+import { useNavigation } from "@react-navigation/native";
 
 export default function Categorias() {
+  const navigation = useNavigation();
+  const [categorias, setCategorias] = useState([]);
+
+  useEffect(() => {
+    listarCategorias();
+  }, []);
+
+  const listarCategorias = async () => {
+    try {
+      const categorias = await CategoriaService.listarCategorias();
+      setCategorias(categorias);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const listarHologramaPorCategoria = (id) => {
+    navigation.navigate("HologramasPorCategoria", { id });
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.pageTitle}>
         <Texto style={styles.boldText}>Categorias</Texto>
       </Text>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Todos</Texto>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Filmes</Texto>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Séries</Texto>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Games</Texto>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Celebridades</Texto>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button}>
-        <Texto style={[styles.text, { color: "#0A1034" }]}>Esportes</Texto>
-      </TouchableOpacity>
+      {categorias.map((categoria) => (
+        <TouchableOpacity
+          key={categoria.id}
+          style={styles.button}
+          onPress={() => listarHologramaPorCategoria(categoria.id)}
+        >
+          <Texto style={[styles.text, { color: "#0A1034" }]}>
+            {categoria.descricao}
+          </Texto>
+        </TouchableOpacity>
+      ))}
     </View>
   );
 }

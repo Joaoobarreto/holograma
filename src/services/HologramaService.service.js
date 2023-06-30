@@ -13,6 +13,26 @@ const HologramaService = {
     }
   },
 
+  listarHologramasPorCategoria: async (categoriaId) => {
+    try {
+      const response = await axios.get(`${API_URL}/holograma/por-categoria/${categoriaId}`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao obter a lista de hologramas:', error);
+      throw error;
+    }
+  },
+
+  consultarHologramasPorDescricao: async (dados) => {
+    try {
+      const response = await axios.post(`${API_URL}/holograma/por-descricao`, dados);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao criar o holograma:', error);
+      throw error;
+    }
+  },
+
   getHologramaPorId: async (id) => {
     try {
       const response = await axios.get(`${API_URL}/${id}`);

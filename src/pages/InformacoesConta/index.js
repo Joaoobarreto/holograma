@@ -1,34 +1,31 @@
-import { StatusBar, Button, StyleSheet,TouchableOpacity, Text, View, SafeAreaView, Alert } from 'react-native';
-import * as React from 'react';
-import {Ionicons} from '@expo/vector-icons';
+import { StyleSheet,TouchableOpacity, Text, View, SafeAreaView } from 'react-native';
+import React, { useContext } from "react";
+import { StoreContext } from '../../routes/routes';
 
 
 export default function InformacoesConta() {
+    const { store } = useContext(StoreContext);
     return (
         <SafeAreaView>
-            <Ionicons style={styles.seta} name="arrow-back" size={50} color="black" />
-            <View>
-                <Text style={styles.titulo}>Informações da Conta</Text>
-            </View>
             <View>
                 <Text style={styles.subtitulo}>Nome de Usuário</Text>
-                <Text style={styles.texto}>Rafael Pereira</Text>
+                <Text style={styles.texto}>{store.usuario.nome}</Text>
             </View>
             <View>
                 <Text style={styles.subtitulo}>CPF</Text>
-                <Text style={styles.texto}>***.***.***-**</Text>
+                <Text style={styles.texto}>{store.usuario.cpf}</Text>
             </View>
             <View>
                 <Text style={styles.subtitulo}>Email</Text>
-                <Text style={styles.texto}>rafa_pereira@gmail.com</Text>
+                <Text style={styles.texto}>{store.usuario.email}</Text>
             </View>
             <View>
                 <Text style={styles.subtitulo}>Telefone</Text>
-                <Text style={styles.texto}>(99)99999-9999</Text>
+                <Text style={styles.texto}>{store.usuario.telefone}</Text>
             </View>
             <View>
                 <Text style={styles.subtitulo}>Endereço</Text>
-                <Text style={styles.texto}>SQN 308 Bloco D, 402</Text>
+                <Text style={styles.texto}>{store.usuario.endereco?.logradouro}</Text>
             </View>
             <TouchableOpacity>
             <Text style={styles.alterar}>Alterar</Text>

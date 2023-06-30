@@ -1,11 +1,13 @@
-import { StatusBar, Button, StyleSheet,TouchableOpacity, Text, View, SafeAreaView, Alert } from 'react-native';
-import * as React from 'react';
+import { StatusBar, StyleSheet,TouchableOpacity, Text, View, SafeAreaView, Alert } from 'react-native';
+import React, { useEffect, useState, useContext } from "react";
 import Texto from '../../components/Texto';
-import PageTitle from '../../components/PageTitle';
-import {Entypo, AntDesign, EvilIcons, FontAwesome, FontAwesome5} from '@expo/vector-icons';
-
+import {EvilIcons} from '@expo/vector-icons'
+import UsuarioService from '../../services/UsuarioService.service';
+import { StoreContext } from '../../routes/routes';
 
 export default function ProfilePage({navigation}) {
+  const { store } = useContext(StoreContext);
+
   function InformacoesContaNavigate(){
     navigation.navigate('InformacoesConta')
   }
@@ -16,10 +18,9 @@ export default function ProfilePage({navigation}) {
     <SafeAreaView>
       <StatusBar/>
       <View>
-      <PageTitle>Conta</PageTitle>
       <View style={styles.dadosUsuario}>
         <EvilIcons name="user" size={100} color="#0001FC" />
-        <Texto style={styles.container}>Rafael Pereira</Texto>
+        <Texto style={styles.container}>{store.usuario.nome}</Texto>
       </View>
       <TouchableOpacity style={styles.button} onPress={MeusPedidosNavigate}>
         <Text style={styles.texto}>Meus Pedidos</Text>
@@ -47,7 +48,8 @@ export default function ProfilePage({navigation}) {
 
 const styles = StyleSheet.create({
     container: {
-      fontSize: 24,
+      display: 'flex',
+      fontSize: 17,
       fontStyle: 'normal'
     },
     background:{
