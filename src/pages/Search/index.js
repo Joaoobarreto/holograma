@@ -1,6 +1,5 @@
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, TextInput, View } from "react-native";
 import * as React from "react";
-import { hologramas } from "../../data/data";
 import HoloList from "../../components/HoloList";
 import HologramaService from "../../services/HologramaService.service";
 

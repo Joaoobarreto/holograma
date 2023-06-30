@@ -78,7 +78,13 @@ export default function Routes() {
               <Ionicons name="person-outline" size={size} color={color} />
             ),
             tabBarLabel: () => false,
+            unmountOnBlur: true,
           }}
+          listeners={({ navigation, route }) => ({
+            focus: () => {
+              setCartMounted(true);
+            },
+          })}
         />
       </Tab.Navigator>
     </StoreContext.Provider>

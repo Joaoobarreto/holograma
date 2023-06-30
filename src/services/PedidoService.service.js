@@ -11,6 +11,15 @@ const PedidoService = {
       console.error('Erro ao criar pedido:', error);
       throw error;
     }
+  },
+  listarPedidos: async (id) => {
+    try {
+      const response = await axios.get(`${API_URL}/pedido/listar-por-usuario/${id}`);
+      return response.data;
+    } catch (error) {
+      console.error('Erro ao listar pedidos:', error);
+      throw error;
+    }
   }
 };
 

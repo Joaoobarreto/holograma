@@ -1,7 +1,8 @@
-import { StatusBar, Button, StyleSheet, TouchableOpacity, Text, View, SafeAreaView, Image } from 'react-native';
+import { StatusBar, StyleSheet, Text, View, SafeAreaView, Image } from 'react-native';
 import * as React from 'react';
 
 import logoImage from '../../../assets/Logo.png';
+import Login from '../Login';
 
 
 export default function ProfilePage({ navigation }) {
@@ -18,9 +19,7 @@ export default function ProfilePage({ navigation }) {
         <View style={styles.logoContainer}>
           <Image source={logoImage} style={styles.logoImage} />
         </View>
-        <TouchableOpacity style={styles.button}>
-          <Text style={styles.buttonText}>Conectar-se com o Google</Text>
-        </TouchableOpacity>
+        <Login navigation={navigation}></Login>
       </View>
     </SafeAreaView>
   );

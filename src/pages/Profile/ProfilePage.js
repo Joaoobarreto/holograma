@@ -2,11 +2,13 @@ import { StatusBar, StyleSheet,TouchableOpacity, Text, View, SafeAreaView, Alert
 import React, { useEffect, useState, useContext } from "react";
 import Texto from '../../components/Texto';
 import {EvilIcons} from '@expo/vector-icons'
-import UsuarioService from '../../services/UsuarioService.service';
 import { StoreContext } from '../../routes/routes';
+import Login from '../Login';
+import { useNavigation } from '@react-navigation/native'
 
-export default function ProfilePage({navigation}) {
+export default function ProfilePage() {
   const { store } = useContext(StoreContext);
+  const navigation = useNavigation();
 
   function InformacoesContaNavigate(){
     navigation.navigate('InformacoesConta')
@@ -37,9 +39,7 @@ export default function ProfilePage({navigation}) {
       <TouchableOpacity style={styles.button}>
         <Text style={styles.texto}>Ajuda</Text>
       </TouchableOpacity>
-      <TouchableOpacity>
-        <Text style={styles.sair}>Sair</Text>
-      </TouchableOpacity>
+      <Login navigation={navigation}></Login>
       </View>
     </SafeAreaView>
     )
@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
       marginLeft: 15,
       display: 'flex',
       flexDirection: 'row',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     sair: 
     {

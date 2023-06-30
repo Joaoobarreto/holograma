@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { ScrollView, Image, StyleSheet, View, Dimensions } from "react-native";
-import PageTitle from "../../components/PageTitle";
 import MenuHome from "../../components/MenuHome";
 import HoloList from "../../components/HoloList";
 import HologramaService from "../../services/HologramaService.service";

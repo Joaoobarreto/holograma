@@ -1,66 +1,48 @@
-import { StatusBar, Button, Image, StyleSheet, TouchableOpacity, Text, View, SafeAreaView, Alert, ScrollView } from 'react-native';
-import * as React from 'react';
+import { StyleSheet, TouchableOpacity, Text, View, SafeAreaView, ScrollView } from 'react-native';
+import React, { useContext } from "react";
 import { Ionicons } from '@expo/vector-icons';
-import { hologramas } from '../../data/data';
+import PedidoService from '../../services/PedidoService.service';
+import { StoreContext } from '../../routes/routes';
+import { format } from 'date-fns';
+
 
 export default function MeusPedidos() {
-  const Holo = hologramas.slice(0, 17);
+  const { store } = useContext(StoreContext);
+  const [pedidos, setPedidos] = React.useState([]);
+
+  React.useEffect(() => {
+    fetchPedidos();
+  }, []);
+
+  const fetchPedidos = async () => {
+    try {
+      const listaPedidos = await PedidoService.listarPedidos(store.usuario.id);
+      setPedidos(listaPedidos);
+    } catch (error) {
+      // Tratar erros, exibir mensagem de erro, etc.
+      console.error('Erro ao buscar os pedidos:', error);
+    }
+  };
 
   const renderPedidos = () => {
-    const pedidos = [
-      {
-        numeroPedido: '#21755379',
-        status: 'pendente',
-        data: '25/11/2023',
-        pagamento: 'Boleto Bancário',
-        detalhes: 'Detalhes do pedido',
-      },
-      {
-        numeroPedido: '#27154791',
-        status: 'cancelado',
-        data: '20/11/2023',
-        pagamento: 'Estorno confirmado',
-        detalhes: 'Detalhes do pedido',
-      },
-      {
-        numeroPedido: '#32467853',
-        status: 'concluído',
-        data: '05/10/2023',
-        pagamento: 'Cartão de crédito',
-        detalhes: 'Detalhes do pedido',
-      },
-      {
-        numeroPedido: '#43216578',
-        status: 'concluído',
-        data: '19/09/2023',
-        pagamento: 'Cartão de débito',
-        detalhes: 'Detalhes do pedido',
-      },
-      {
-        numeroPedido: '#87543210',
-        status: 'concluído',
-        data: '02/09/2023',
-        pagamento: 'PIX',
-        detalhes: 'Detalhes do pedido',
-      },
-    ];
+    
     return pedidos.map((pedido, index) => (
       <View style={styles.pedidoContainer} key={index}>
         <View style={styles.pedidoHeader}>
-          <Text style={styles.numeroPedido}>{pedido.numeroPedido}</Text>
+          <Text style={styles.numeroPedido}>#516819</Text>
           <Text style={[styles.status, getStatusColor(pedido.status)]}>{pedido.status}</Text>
         </View>
         <View style={styles.pedidoInfo}>
           <View style={styles.pedidoDetails}>
             <TouchableOpacity style={styles.detalhesButton}>
-              <Text style={styles.detalhesText}>{pedido.detalhes}</Text>
+              <Text style={styles.detalhesText}>Detalhes do Pedido</Text>
               <Ionicons name="arrow-down" size={20} color="blue" />
             </TouchableOpacity>
           </View>
           <View style={styles.pedidoPayment}>
-            <Text style={styles.pagamento}>{pedido.pagamento}</Text>
+            <Text style={styles.pagamento}>Cartão</Text>
           </View>
-          <Text style={styles.data}>Data: {pedido.data}</Text>
+          <Text style={styles.data}>{format(new Date(pedido.data), 'dd/MM/yyyy')}</Text>
         </View>
       </View>
     ));

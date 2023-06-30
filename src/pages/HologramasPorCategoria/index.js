@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { useRoute } from "@react-navigation/native";
 import HoloList from "../../components/HoloList";
 import HologramaService from "../../services/HologramaService.service";

@@ -9,6 +9,7 @@ import {
   Modal,
   TextInput,
   RefreshControl,
+  Alert
 } from "react-native";
 import { MaterialIcons } from "react-native-vector-icons";
 import { StoreContext } from "../../routes/routes";
@@ -17,14 +18,13 @@ import CartaoService from "../../services/CartaoService.service";
 import PedidoService from "../../services/PedidoService.service";
 import Texto from "../../components/Texto";
 import { AntDesign } from '@expo/vector-icons';
-import { useRoute, useNavigation } from '@react-navigation/native';
 
 export default function Cart({ navigation }) {
   const [refreshing, setRefreshing] = React.useState(false);
   const { store } = useContext(StoreContext);
   const [isModalVisible, setModalVisible] = useState(false);
   const [pedido, setPedido] = useState({
-    usuarioId: store.usuario?.endereco.usuarioId,
+    usuarioId: store.usuario?.endereco?.usuarioId,
     tipoPagamentoId: 1,
     cartaoId: null,
     hologramas: store.carrinho.map((holo) => holo.id),
@@ -33,12 +33,12 @@ export default function Cart({ navigation }) {
   const VerificarExisteEndereco = () => {
     return store.usuario?.endereco
       ? {
-          cep: store.usuario?.endereco.cep,
-          logradouro: store.usuario?.endereco.logradouro,
-          complemento: store.usuario?.endereco.complemento,
-          numero: store.usuario?.endereco.numero,
-          cidade: store.usuario?.endereco.cidade,
-          estado: store.usuario?.endereco.estado,
+          cep: store.usuario?.endereco?.cep,
+          logradouro: store.usuario?.endereco?.logradouro,
+          complemento: store.usuario?.endereco?.complemento,
+          numero: store.usuario?.endereco?.numero,
+          cidade: store.usuario?.endereco?.cidade,
+          estado: store.usuario?.endereco?.estado,
         }
       : {
           cep: "",
@@ -68,12 +68,13 @@ export default function Cart({ navigation }) {
     setRefreshing(true)
   };
 
-  const handleAddressConfirm = () => {
+  const handleAddressConfirm = async () => {
     var enderecoId = null;
     setAddress(addressInputs);
     setModalVisible(false);
     store.usuario.endereco = addressInputs;
-    UsuarioService.atualizarUsuario(store.usuario).then(
+    store.usuario.endereco.usuarioId = store.usuario.id
+    await UsuarioService.atualizarUsuario(store.usuario).then(
       (obj) => (enderecoId = obj.id)
     );
     setPedido((prevPedido) => ({
@@ -98,6 +99,7 @@ export default function Cart({ navigation }) {
 
   const handleCardConfirm = async () => {
     var cartaoId = null;
+    displayCard.usuarioId = store.usuario.id
     await CartaoService.criarCartao(displayCard).then((obj) => {
       cartaoId = obj.id;
     });
@@ -108,10 +110,22 @@ export default function Cart({ navigation }) {
     setCardModalVisible(false);
   };
 
+  const validarPedido = () => {
+    if(!pedido.cartaoId) {
+      Alert.alert("Atenção", "É preciso inserir um cartão para completar o pedido");
+    }
+    if(!pedido.enderecoId) {
+      Alert.alert("Atenção", "É preciso inserir um endereço para completar o pedido");
+    }
+  }
+
   const confirmarPedido = () => {
+    if(!validarPedido()) {
+      return
+    }
+    pedido.usuarioId = store.usuario.id
     PedidoService.criarPedido(pedido)
       .then((response) => {
-        
         setShowConfirmation(true);
       })
       .catch((error) => {
@@ -127,7 +141,6 @@ export default function Cart({ navigation }) {
   }, []);
 
   useEffect(() => {
-    console.log(showConfirmation)
     if (showConfirmation) {
       const timer = setTimeout(() => {
         setShowConfirmation(false);
@@ -136,6 +149,7 @@ export default function Cart({ navigation }) {
       return () => {
         clearTimeout(timer);
         store.carrinho = []
+        onRefresh()
       };
     }
   }, [showConfirmation]);
