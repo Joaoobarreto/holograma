@@ -16,12 +16,14 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.joaoobarreto.holograma"
+      "bundleIdentifier": "com.joaoobarreto.holograma",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#ffffff",
+        "googleServicesFile": "./google-services.json"
       },
       "package": "com.joaoobarreto.holograma"
     },
@@ -33,6 +35,7 @@
       "eas": {
         "projectId": "0b3757b8-5bb9-4d05-a204-c32d12ac1b92"
       }
-    }
+    },
+    "plugins": ["@react-native-google-signin/google-signin"]
   }
 }

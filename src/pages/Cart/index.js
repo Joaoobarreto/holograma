@@ -363,6 +363,7 @@ export default function Cart({ navigation }) {
         </View>
       </Modal>
     </ScrollView>
+  
   );
 }
 
@@ -375,6 +376,7 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     marginBottom: 20,
+    
   },
   headerTitle: {
     color: "#0A1034",
@@ -462,6 +464,8 @@ const styles = StyleSheet.create({
   deliveryContainer: {
     flexDirection: "row",
     marginBottom: 5,
+  
+    
   },
   deliveryTitle: {
     color: "#0A1034",
@@ -567,6 +571,36 @@ const styles = StyleSheet.create({
     color: "#fff",
     textAlign: "center",
     fontWeight: "bold",
+    fontSize: 16,
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '90%',
+  },
+  modalTitle: {
+    color: '#0A1034',
+    fontSize: 16,
+    marginBottom: 10,
+    fontWeight: 'bold',
+  },
+  addressInput: {
+    backgroundColor: '#F6F6F6',
+    borderRadius: 5,
+    marginBottom: 10,
+    padding: 10,
+  },
+  modalButton: {
+    backgroundColor: '#0135EB',
+    paddingVertical: 10,
+    paddingHorizontal: 15,
+    borderRadius: 5,
+  },
+  modalButtonText: {
+    color: '#fff',
+    textAlign: 'center',
+    fontWeight: 'bold',
     fontSize: 16,
   },
 });

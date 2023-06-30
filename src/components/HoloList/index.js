@@ -11,6 +11,8 @@ import {
 import Texto from "../Texto";
 import { StoreContext } from '../../routes/routes.js';
 
+
+
 export default function HoloList({ items }) {
   const { store } = useContext(StoreContext);
   const [selectedItem, setSelectedItem] = useState(null);
